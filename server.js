@@ -22,6 +22,27 @@ if (!process.env.DISABLE_XORIGIN) {
   });
 }
 
+
+app.get("/tst", function(req, res){
+  console.log("Hello Terry");
+});
+
+
+app.get("/api/whoami", function(req,res) {
+  console.log(req.headers);
+  console.log(req.get('x-forwarded-for'));
+    var obj = new Object()
+    
+    obj.ipaddress = req.headers['x-forwarded-for']
+    obj.language = req.headers['accept-language'].substring(0, req.headers['accept-language'].indexOf(','))
+    obj.software = /\(([^)]+)\)/g.exec(req.headers["user-agent"])[1]
+    
+    
+    res.json(obj)
+});
+
+
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.route('/_api/package.json')
