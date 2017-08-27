@@ -29,11 +29,13 @@ app.get("/tst", function(req, res){
 
 
 app.get("/api/whoami", function(req,res) {
-  console.log(req.headers);
-  console.log(req.get('x-forwarded-for'));
+//  console.log(req.headers);
+  console.log(req.get('x-forwarded-for').split(",")[0]);
+  console.log(req.get('accept-language').split(",")[0]);
+  console.log(/\(([^)]+)\)/g.exec(req.get('user-agent').split(",")[0]));
     var obj = new Object()
     
-    obj.ipaddress = req.headers['x-forwarded-for']
+    obj.ipaddress = req.headers['x-forwarded-for'];
     obj.language = req.headers['accept-language'].substring(0, req.headers['accept-language'].indexOf(','))
     obj.software = /\(([^)]+)\)/g.exec(req.headers["user-agent"])[1]
     
