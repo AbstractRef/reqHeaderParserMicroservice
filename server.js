@@ -23,15 +23,11 @@ if (!process.env.DISABLE_XORIGIN) {
 }
 
 
-app.get("/tst", function(req, res){
-  console.log("Hello Terry");
-});
-
-
 app.get("/api/whoami", function(req,res) {
 //  console.log(req.headers);
   console.log(req.get('x-forwarded-for').split(",")[0]);
   console.log(req.get('accept-language').split(",")[0]);
+  console.log(req.get('user-agent').split(",")[0]);
   console.log(/\(([^)]+)\)/g.exec(req.get('user-agent').split(",")[0]));
     var obj = new Object()
     
