@@ -24,19 +24,12 @@ if (!process.env.DISABLE_XORIGIN) {
 
 
 app.get("/api/whoami", function(req,res) {
-//  console.log(req.headers);
-  console.log(req.get('x-forwarded-for').split(",")[0]);
-  console.log(req.get('accept-language').split(",")[0]);
-  console.log(req.get('user-agent').split(",")[0]);
-  console.log(/\(([^)]+)\)/g.exec(req.get('user-agent').split(",")[0]));
-    var obj = new Object()
-    
-    obj.ipaddress = req.headers['x-forwarded-for'];
-    obj.language = req.headers['accept-language'].substring(0, req.headers['accept-language'].indexOf(','))
-    obj.software = /\(([^)]+)\)/g.exec(req.headers["user-agent"])[1]
-    
-    
-    res.json(obj)
+  //  console.log(req.headers);
+  var headerJson = new Object()
+  headerJson.ipaddress = req.get('x-forwarded-for').split(",")[0];
+    headerJson.language = req.headers['accept-language'].substring(0, req.headers['accept-language'].indexOf(','));
+    headerJson.software = /\(([^)]+)\)/g.exec(req.headers["user-agent"])[1];
+    res.json(headerJson)
 });
 
 
